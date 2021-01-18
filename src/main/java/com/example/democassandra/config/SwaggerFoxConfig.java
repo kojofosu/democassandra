@@ -1,5 +1,6 @@
 package com.example.democassandra.config;
 
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -21,7 +22,7 @@ public class SwaggerFoxConfig {
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .select() //the select() method returns an instance of ApiSelectorBuilder, which provides a way to control the endpoints exposed by Swagger.
                 .apis(RequestHandlerSelectors.any())// configuring predicates for selecting RequestHandlers with the help of RequestHandlerSelectors and PathSelectors. Using any() for both will make documentation for our entire API available through Swagger.
-                .paths(PathSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build()
                 .apiInfo(apiInfo());
         return docket;
