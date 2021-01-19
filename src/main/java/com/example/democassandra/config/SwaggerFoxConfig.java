@@ -19,13 +19,12 @@ import java.util.Collections;
 public class SwaggerFoxConfig {
     @Bean
     public Docket api(){
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+       return new Docket(DocumentationType.SWAGGER_2)
                 .select() //the select() method returns an instance of ApiSelectorBuilder, which provides a way to control the endpoints exposed by Swagger.
                 .apis(RequestHandlerSelectors.any())// configuring predicates for selecting RequestHandlers with the help of RequestHandlerSelectors and PathSelectors. Using any() for both will make documentation for our entire API available through Swagger.
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build()
                 .apiInfo(apiInfo());
-        return docket;
     }
 
     private ApiInfo apiInfo() {
